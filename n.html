@@ -1,0 +1,1062 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bootstrap demo</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+        integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+
+    <style>
+        body {
+            width: 100vw;
+            height: auto;
+            background: linear-gradient(135deg, #ef4d79, #3d1b63);
+            background-repeat: no-repeat;
+
+        }
+
+        body::-webkit-scrollbar {
+            display: none;
+        }
+
+        .logo img {
+            width: 150px;
+        }
+
+        #uploadedImage {
+            width: 100%;
+            display: none;
+            height: 500px;
+        }
+/* 
+        .error-message {
+            color: red;
+        } */
+
+        .discount {
+            position: absolute;
+             font-size: 45px; 
+            font-weight: 600;
+            bottom: -380px;
+            left: 43px;
+        }
+
+        .phonenumber-p5 {
+            position: absolute;
+            bottom: -471px;
+            right: -366px !important;
+            font-weight: 400;
+            font-size: 32px;
+        }
+
+        .addgress-page5 {
+            width: 531px;
+            display: flex;
+            justify-content: center;
+            position: absolute;
+            left: 0px;
+            bottom: -495px;
+            font-size: 20px;
+
+            /* border: 2px solid; */
+        }
+
+        /* 
+        @media screen and (min-width:980px) {
+            .phonenumber-p5 {
+                position: absolute;
+                bottom: -471px;
+                right: -366px !important;
+                font-weight: 400;
+                font-size: 32px;
+            }
+
+
+        } */
+
+        @media screen and (min-width:400px) and (max-width:1000px) {
+            .phonenumber-p5 {
+                position: absolute;
+                bottom: -473px;
+                right: -296px !important;
+                font-weight: 400;
+                /* font-size: 32px; */
+            }
+
+        }
+    </style>
+</head>
+
+<body class="container-fluid">
+    <div class="logo mt-3 ms-2">
+        <img src="fabo.logo.png" alt="">
+    </div>
+
+    <div class="container mt-3">
+        <div class="row">
+            <div class="col-md-6">
+                <div style="height:500px; background-color: #fff; border: 1px solid #ddd; margin-bottom: 15px; position: relative;"
+                    class="border rounded d-flex align-items-center justify-content-center">
+                    <button class="btn btn-primary mt-3" onclick="uploadImage()">Upload Image</button>
+                    <!-- Display Image -->
+                    <div id="previewContainer"
+                        style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: none;">
+                        <!-- <img id="uploadedImage" style="max-width:800px; max-height: 100%;" src="#" alt="Uploaded Image"
+                            class="border rounded"> -->
+                        <canvas id="previewCanvas" style="max-width:800px; max-height: 100%;"
+                            class="border rounded"></canvas>
+                        <button class="btn btn-danger cancel-btn" style="position: absolute; top: 10px; right: 10px;"
+                            onclick="cancelPreview()">X</button>
+                        <!-- Display details on the left side -->
+                        <div id="detailsContainer"
+                            style="position: absolute; top: 0; left: 0; padding: 10px; color: #000;"></div>
+                    </div>
+                    <!-- Input for Image Upload -->
+                    <input type="file" id="imageInput" style="display: none;" accept="image/*">
+                </div>
+            </div>
+
+
+            <div class="col-md-6">
+                <!-- Right Division -->
+                <div id="page1"
+                    style="height: 500px; background-color: #fff; border: 1px solid #ddd; margin-bottom: 15px;"
+                    class="border rounded">
+                    <!-- Form with Name Input and Dropdowns -->
+                    <form class="ms-4 mt-4 me-4" onsubmit="return nextPage()">
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Name: <sup style="color: red;">*</sup></label>
+                            <input type="text" class="form-control" id="name" placeholder="Enter your name" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="dropdown1" class="form-label">Select Template Style:<sup
+                                    style="color: red;">*</sup></label>
+                            <select class="form-select" id="dropdown1">
+                                <option value=""></option>
+                                <option value="style 1">Style 1</option>
+                                <option value="style 2">Style 2</option>
+                                <option value="style 3">Style 3</option>
+                                <option value="style 4">Style 4</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="dropdown2" class="form-label">Select Type:<sup
+                                    style="color: red;">*</sup></label>
+                            <select class="form-select" id="dropdown2">
+                                <option value=""></option>
+                                <option value="optionA">Festival</option>
+                                <option value="optionB">Discount</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="dropdown3" class="form-label">Select Service Type:<sup
+                                    style="color: red;">*</sup></label>
+                            <select class="form-select" id="dropdown3">
+                                <option value=""></option>
+                                <option value="choiceX">Laundry</option>
+                                <option value="choiceY">Dry Cleaning</option>
+                                <option value="choiceZ">Both</option>
+                            </select>
+                        </div>
+                        <div class="d-flex justify-content-end">
+                            <button type="submit" class="btn btn-success">Next</button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Page 2 (hidden initially) -->
+                <div id="page2" style="height:500px; background-color: #e5cbcb; border: 1px solid #ddd; margin-bottom: 15px;
+                    display: none;" class="border rounded">
+                    <!-- Another Form for the Second Page -->
+                    <form class="ms-4 mt-4 me-4">
+                        <!-- Add your form elements for the second page here -->
+                        <div class="mb-3">
+
+                            <label for="additionalField" class="form-label fs-2 d-flex">Create Preview</label>
+                            <div class="d-flex justify-content-between mt-3">
+                                <div class="w-100">
+                                    <input type="text" class="form-control" id="phoneNumber1" placeholder="Phone number"
+                                        oninput="validatePhoneNumber()">
+                                    <div id="error-message1" class="error-message"></div>
+                                </div>
+                                <select id="fontStyle" onchange="changeFontStyle()" style="width:100px;"
+                                    class="border rounded ms-2">
+                                    <option value="Arial">Arial</option>
+                                    <option value="Times New Roman">Times New Roman</option>
+                                    <option value="Courier New">Courier New</option>
+                                    <option value="Cambria, Cochin, Georgia, Times, 'Times New Roman', serif">Cambria,
+                                        Cochin, Georgia, Times, 'Times New Roman', serif</option>
+                                    <!-- Add more font styles as needed -->
+                                </select>
+                                <select id="fontSize" onchange="changeFontSize()" class="border rounded ms-2">
+                                    <option value="12">12px</option>
+                                    <option value="16">16px</option>
+                                    <option value="20">20px</option>
+                                    <option value="25">25px</option>
+                                    <option value="30">30px</option>
+                                    <option value="40">40px</option>
+                                    <!-- Add more font sizes as needed -->
+                                </select>
+                                <input type="color" style="width:8%;height:33px;" class="ms-2" id="page1-phone">
+
+                            </div>
+                            <div class="d-flex justify-content-between mt-3">
+                                <div class="w-100">
+                                    <input type="text" class="form-control" id="discount1" placeholder="Discount"
+                                        oninput="validateDiscount()">
+                                    <div id="error-message2" class="error-message"></div>
+                                </div>
+                                <select id="fontStyle" onchange="changeFontStyle()" style="width:100px;"
+                                    class="border rounded ms-2">
+                                    <option value="Arial">Arial</option>
+                                    <option value="Times New Roman">Times New Roman</option>
+                                    <option value="Courier New">Courier New</option>
+                                    <option value="Cambria, Cochin, Georgia, Times, 'Times New Roman', serif">Cambria,
+                                        Cochin, Georgia, Times, 'Times New Roman', serif</option>
+                                    <!-- Add more font styles as needed -->
+                                </select>
+                                <select id="fontSize" onchange="changeFontSize()" class="border rounded ms-2">
+                                    <option value="12">12px</option>
+                                    <option value="16">16px</option>
+                                    <option value="20">20px</option>
+                                    <option value="25">25px</option>
+                                    <option value="30">30px</option>
+                                    <option value="40">40px</option>
+                                    <!-- Add more font sizes as needed -->
+                                </select>
+                                <input type="color" style="width:8%;height:33px;" class="ms-2" id="page1-discount">
+                            </div>
+                            <div class="d-flex justify-content-between mt-3">
+                                <textarea type="text" class="form-control" id="addressp1"
+                                    placeholder="Address"></textarea>
+                                <select id="fontStyle" onchange="changeFontStyle()" style="width:100px;"
+                                    class="border rounded ms-2">
+                                    <option value="Arial">Arial</option>
+                                    <option value="Times New Roman">Times New Roman</option>
+                                    <option value="Courier New">Courier New</option>
+                                    <option value="Cambria, Cochin, Georgia, Times, 'Times New Roman', serif">Cambria,
+                                        Cochin, Georgia, Times, 'Times New Roman', serif</option>
+                                    <!-- Add more font styles as needed -->
+                                </select>
+                                <select id="fontSize" onchange="changeFontSize()" class="border rounded ms-2">
+                                    <option value="12">12px</option>
+                                    <option value="16">16px</option>
+                                    <option value="20">20px</option>
+                                    <option value="25">25px</option>
+                                    <option value="30">30px</option>
+                                    <option value="40">40px</option>
+                                    <!-- Add more font sizes as needed -->
+                                </select>
+                                <input type="color" style="width:8%;height:33px;" class="ms-2 mt-3" id="page1-add">
+                            </div>
+                            <div class="d-flex justify-content-between mt-3">
+                                <input type="date" class="form-control" id="date">
+                                <select id="fontStyle" onchange="changeFontStyle()" style="width:100px;"
+                                    class="border rounded ms-2">
+                                    <option value="Arial">Arial</option>
+                                    <option value="Times New Roman">Times New Roman</option>
+                                    <option value="Courier New">Courier New</option>
+                                    <option value="Cambria, Cochin, Georgia, Times, 'Times New Roman', serif">Cambria,
+                                        Cochin, Georgia, Times, 'Times New Roman', serif</option>
+                                    <!-- Add more font styles as needed -->
+                                </select>
+                                <select id="fontSize" onchange="changeFontSize()" class="border rounded ms-2">
+                                    <option value="12">12px</option>
+                                    <option value="16">16px</option>
+                                    <option value="20">20px</option>
+                                    <option value="25">25px</option>
+                                    <option value="30">30px</option>
+                                    <option value="40">40px</option>
+                                    <!-- Add more font sizes as needed -->
+                                </select>
+                                <input type="color" style="width:8%;height:33px;" class="ms-2" id="page1-date">
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <button type="button" class="btn btn-success" onclick="previousPage1()">Back</button>
+                            <button type="button" class="btn btn-success">Preview</button>
+                            <button type="submit" class="btn btn-success" id="download">Download</button>
+                            <button type="button" class="btn btn-success">Clear</button>
+                            <button type="submit" class="btn btn-success">Save</button>
+                        </div>
+                    </form>
+                </div>
+
+
+
+
+
+                <!-- Page 3 (hidden initially) -->
+                <div id="page3" style="height:500px; background-color: #e5cbcb; border: 1px solid #ddd; margin-bottom: 15px;
+                  display: none;" class="border rounded">
+                    <!-- Another Form for the Second Page -->
+                    <form class="ms-4 mt-4 me-4">
+                        <!-- Add your form elements for the second page here -->
+
+                        <div class="mb-3">
+
+                            <label for="additionalField" class="form-label fs-2">Create Preview</label>
+                            <div class="d-flex justify-content-between mt-3"> 
+                                <div class="w-100">
+                                <input type="text" class="form-control" id="phoneNumber2" placeholder="Phone number"
+                                    oninput="validatePhoneNumber1()">
+                                <div id="error-messagep1" class="error-message"></div>
+                                
+                            </div>
+                                <select id="fontStyle" onchange="changeFontStyle()" style="width:100px;"
+                                    class="border rounded ms-2">
+                                    <option value="Arial">Arial</option>
+                                    <option value="Times New Roman">Times New Roman</option>
+                                    <option value="Courier New">Courier New</option>
+                                    <option value="Cambria, Cochin, Georgia, Times, 'Times New Roman', serif">Cambria,
+                                        Cochin, Georgia, Times, 'Times New Roman', serif</option>
+                                    <!-- Add more font styles as needed -->
+                                </select>
+                                <select id="fontSize" onchange="changeFontSize()" class="border rounded ms-2">
+                                    <option value="12">12px</option>
+                                    <option value="16">16px</option>
+                                    <option value="20">20px</option>
+                                    <option value="25">25px</option>
+                                    <option value="30">30px</option>
+                                    <option value="40">40px</option>
+                                    <!-- Add more font sizes as needed -->
+                                </select>
+                                <input type="color" style="width:8%;height:33px;" class="ms-2">
+                            </div>
+                            <div class="d-flex justify-content-between mt-3">
+                                <div class="w-100">
+                                    <input type="text" class="form-control" id="discount2" placeholder="Discount"
+                                        oninput="validateDiscount1()">
+                                    <div id="error-messaged1" class="error-message"></div>
+                                </div>
+                                <select id="fontStyle" onchange="changeFontStyle()" style="width:100px;"
+                                    class="border rounded ms-2">
+                                    <option value="Arial">Arial</option>
+                                    <option value="Times New Roman">Times New Roman</option>
+                                    <option value="Courier New">Courier New</option>
+                                    <option value="Cambria, Cochin, Georgia, Times, 'Times New Roman', serif">Cambria,
+                                        Cochin, Georgia, Times, 'Times New Roman', serif</option>
+                                    <!-- Add more font styles as needed -->
+                                </select>
+                                <select id="fontSize" onchange="changeFontSize()" class="border rounded ms-2">
+                                    <option value="12">12px</option>
+                                    <option value="16">16px</option>
+                                    <option value="20">20px</option>
+                                    <option value="25">25px</option>
+                                    <option value="30">30px</option>
+                                    <option value="40">40px</option>
+                                    <!-- Add more font sizes as needed -->
+                                </select>
+                                <input type="color" style="width:8%;height:33px;" class="ms-2">
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <button type="button" class="btn btn-success" onclick="previousPage2()">Back</button>
+                            <button type="button" class="btn btn-success">Preview</button>
+                            <button type="submit" class="btn btn-success" id="download">Download</button>
+                            <button type="button" class="btn btn-success">Clear</button>
+                            <button type="submit" class="btn btn-success">Save</button>
+                        </div>
+                    </form>
+                </div>
+
+
+
+
+
+
+
+                <!-- Page 4 (hidden initially) -->
+                <div id="page4" style="height:500px; background-color: #e5cbcb; border: 1px solid #ddd; margin-bottom: 15px;
+                display: none;" class="border rounded">
+                    <!-- Another Form for the Second Page -->
+                    <form class="ms-4 mt-4 me-4">
+                        <!-- Add your form elements for the second page here -->
+
+                        <div class="mb-3">
+
+                            <label for="additionalField" class="form-label fs-2">Create Preview</label>
+                            <div class="d-flex justify-content-between mt-3">
+                                <div class="w-100">
+                                    <input type="text" class="form-control" id="discount3" placeholder="Discount"
+                                        oninput="validateDiscount2()">
+                                    <div id="error-messaged2" class="error-message"></div>
+                                </div>
+                                <select id="fontStyle" onchange="changeFontStyle()" style="width:100px;"
+                                    class="border rounded ms-2">
+                                    <option value="Arial">Arial</option>
+                                    <option value="Times New Roman">Times New Roman</option>
+                                    <option value="Courier New">Courier New</option>
+                                    <option value="Cambria, Cochin, Georgia, Times, 'Times New Roman', serif">Cambria,
+                                        Cochin, Georgia, Times, 'Times New Roman', serif</option>
+                                    <!-- Add more font styles as needed -->
+                                </select>
+                                <select id="fontSize" onchange="changeFontSize()" class="border rounded ms-2">
+                                    <option value="12">12px</option>
+                                    <option value="16">16px</option>
+                                    <option value="20">20px</option>
+                                    <option value="25">25px</option>
+                                    <option value="30">30px</option>
+                                    <option value="40">40px</option>
+                                    <!-- Add more font sizes as needed -->
+                                </select>
+                                <input type="color" style="width:8%;height:33px;" class="ms-2">
+                            </div>
+                            <div class="d-flex justify-content-between mt-3">
+                                <div class="w-100">
+                                    <input type="text" class="form-control" id="discount4" placeholder="Discount"
+                                        oninput="validateDiscount3()">
+                                    <div id="error-messaged3" class="error-message"></div>
+                                </div>
+                                <select id="fontStyle" onchange="changeFontStyle()" style="width:100px;"
+                                    class="border rounded ms-2">
+                                    <option value="Arial">Arial</option>
+                                    <option value="Times New Roman">Times New Roman</option>
+                                    <option value="Courier New">Courier New</option>
+                                    <option value="Cambria, Cochin, Georgia, Times, 'Times New Roman', serif">Cambria,
+                                        Cochin, Georgia, Times, 'Times New Roman', serif</option>
+                                    <!-- Add more font styles as needed -->
+                                </select>
+                                <select id="fontSize" onchange="changeFontSize()" class="border rounded ms-2">
+                                    <option value="12">12px</option>
+                                    <option value="16">16px</option>
+                                    <option value="20">20px</option>
+                                    <option value="25">25px</option>
+                                    <option value="30">30px</option>
+                                    <option value="40">40px</option>
+                                    <!-- Add more font sizes as needed -->
+                                </select>
+                                <input type="color" style="width:8%;height:33px;" class="ms-2">
+                            </div>
+                            <div class="d-flex justify-content-between mt-3">
+                                <div class="w-100">
+                                    <input type="text" class="form-control" id="phoneNumber3" placeholder="Phone number"
+                                        oninput="validatePhoneNumber2()">
+                                    <div id="error-messagep2" class="error-message"></div>
+                                </div>
+                                <select id="fontStyle" onchange="changeFontStyle()" style="width:100px;"
+                                    class="border rounded ms-2">
+                                    <option value="Arial">Arial</option>
+                                    <option value="Times New Roman">Times New Roman</option>
+                                    <option value="Courier New">Courier New</option>
+                                    <option value="Cambria, Cochin, Georgia, Times, 'Times New Roman', serif">Cambria,
+                                        Cochin, Georgia, Times, 'Times New Roman', serif</option>
+                                    <!-- Add more font styles as needed -->
+                                </select>
+                                <select id="fontSize" onchange="changeFontSize()" class="border rounded ms-2">
+                                    <option value="12">12px</option>
+                                    <option value="16">16px</option>
+                                    <option value="20">20px</option>
+                                    <option value="25">25px</option>
+                                    <option value="30">30px</option>
+                                    <option value="40">40px</option>
+                                    <!-- Add more font sizes as needed -->
+                                </select>
+                                <input type="color" style="width:8%;height:33px;" class="ms-2">
+                            </div>
+                            <div class="d-flex justify-content-between mt-3">
+                                <input type="text" class="form-control" id="additionalField" placeholder="Price">
+                                <select id="fontStyle" onchange="changeFontStyle()" style="width:100px;"
+                                    class="border rounded ms-2">
+                                    <option value="Arial">Arial</option>
+                                    <option value="Times New Roman">Times New Roman</option>
+                                    <option value="Courier New">Courier New</option>
+                                    <option value="Cambria, Cochin, Georgia, Times, 'Times New Roman', serif">Cambria,
+                                        Cochin, Georgia, Times, 'Times New Roman', serif</option>
+                                    <!-- Add more font styles as needed -->
+                                </select>
+                                <select id="fontSize" onchange="changeFontSize()" class="border rounded ms-2">
+                                    <option value="12">12px</option>
+                                    <option value="16">16px</option>
+                                    <option value="20">20px</option>
+                                    <option value="25">25px</option>
+                                    <option value="30">30px</option>
+                                    <option value="40">40px</option>
+                                    <!-- Add more font sizes as needed -->
+                                </select>
+                                <input type="color" style="width:8%;height:33px;" class="ms-2">
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <button type="button" class="btn btn-success" onclick="previousPage3()">Back</button>
+                            <button type="button" class="btn btn-success" >Preview</button>
+                            <button type="submit" class="btn btn-success" id="download">Download</button>
+                            <button type="button" class="btn btn-success">Clear</button>
+                            <button type="submit" class="btn btn-success">Save</button>
+                        </div>
+                    </form>
+                </div>
+
+
+
+
+
+                <!-- Page 3 (hidden initially) -->
+                <div id="page5"
+                    style="height:500px; background-color: #e5cbcb; border: 1px solid #ddd; margin-bottom: 15px; display: none;"
+                    class="border rounded">
+                    <form class="ms-4 mt-4 me-4">
+                        <div class="mb-3">
+                            <label for="discount" class="form-label fs-2">Create Preview</label>
+                            <div class="d-flex justify-content-between mt-3">
+                                <div class="w-100">
+                                    <input type="text" class="form-control" id="discount5" placeholder="Discount"
+                                        oninput="validateDiscount4()">
+                                    <div id="error-messaged4" class="error-message"></div>
+                                </div>
+                                <select id="fontStylep1" style="width:100px;" class="border rounded ms-2">
+                                    <option value="Arial">Arial</option>
+                                    <option value="Times New Roman">Times New Roman</option>
+                                    <option value="Courier New">Courier New</option>
+                                    <option value="Cambria, Cochin, Georgia, Times, 'Times New Roman', serif">Cambria,
+                                        Cochin, Georgia, Times, 'Times New Roman', serif</option>
+                                    <!-- Add more font styles as needed -->
+                                </select>
+                              
+                                <input type="color" style="width:10%;height:33px;" class="ms-2" id="page5-discount">
+
+                            </div>
+                            <div class="d-flex justify-content-between mt-3">
+                                <div class="w-100">
+                                    <input type="text" class="form-control" id="phoneNumber4" placeholder="Phone number"
+                                        oninput="validatePhoneNumber3()">
+                                    <div id="error-messagep3" class="error-message"></div>
+                                </div>
+                                <select id="fontStylep2" style="width:100px;" class="border rounded ms-2">
+                                    <option value="Arial">Arial</option>
+                                    <option value="Times New Roman">Times New Roman</option>
+                                    <option value="Courier New">Courier New</option>
+                                    <option value="Cambria, Cochin, Georgia, Times, 'Times New Roman', serif">Cambria,
+                                        Cochin, Georgia, Times, 'Times New Roman', serif</option>
+                                    <!-- Add more font styles as needed -->
+                                </select>
+                               
+                                <input type="color" style="width:10%;height:33px;" class="ms-2" id="page5-phone">
+                            </div>
+                            <div class="d-flex justify-content-between mt-3">
+                                <textarea type="text" class="form-control" id="address"
+                                    placeholder="Address"></textarea>
+                                <select id="fontStylep3" style="width:100px;" class="border rounded ms-2">
+                                    <option value="Arial">Arial</option>
+                                    <option value="Times New Roman">Times New Roman</option>
+                                    <option value="Courier New">Courier New</option>
+                                    <option value="Cambria, Cochin, Georgia, Times, 'Times New Roman', serif">Cambria,
+                                        Cochin, Georgia, Times, 'Times New Roman', serif</option>
+                                    <!-- Add more font styles as needed -->
+                                </select>
+                              
+                                <input type="color" style="width:10%;height:33px;" class="ms-2 mt-3" id="page5-add">
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <button type="button" class="btn btn-success" onclick="previousPage4()">Back</button>
+                            <button type="button" class="btn btn-success" onclick="showPreview()">Preview</button>
+                            <button type="button" class="btn btn-success" onclick="downloadpage5()"
+                                id="download">Download</button>
+                                <button type="button" class="btn btn-success" onclick="clearPreview()">Clear</button>
+                            <button type="submit" class="btn btn-success">Save</button>
+                        </div>
+                    </form>
+                </div>
+
+
+
+
+
+
+
+
+            </div>
+        </div>
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+            crossorigin="anonymous"></script>
+
+
+        <script>
+            // Function to show the selected image as a preview
+            function uploadImage() {
+                var input = document.getElementById('imageInput');
+                var previewContainer = document.getElementById('previewContainer');
+                var previewCanvas = document.getElementById('previewCanvas');
+                var detailsContainer = document.getElementById('detailsContainer');
+
+                input.click();
+
+                input.onchange = function () {
+                    var file = input.files[0];
+                    var reader = new FileReader();
+
+                    reader.onload = function () {
+                        var img = new Image();
+                        img.src = reader.result;
+
+                        img.onload = function () {
+                            // Display the image on the canvas
+                            previewCanvas.width = img.width;
+                            previewCanvas.height = img.height;
+                            var context = previewCanvas.getContext('2d');
+                            console.log(context)
+                            context.drawImage(img, 0, 0, img.width, img.height);
+                            previewContainer.style.display = 'block';
+
+                            // Display image details on the left side
+
+                        };
+                    };
+
+                    reader.readAsDataURL(file);
+                };
+            }
+
+            // Function to cancel the image preview
+            function cancelPreview() {
+                var previewContainer = document.getElementById('previewContainer');
+                previewContainer.style.display = 'none';
+            }
+
+            // Function to format file size in bytes
+            function formatBytes(bytes, decimals = 2) {
+                if (bytes === 0) return '0 Bytes';
+
+                const k = 1024;
+                const dm = decimals < 0 ? 0 : decimals;
+                const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
+
+                const i = Math.floor(Math.log(bytes) / Math.log(k));
+
+                return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
+            }
+        </script>
+
+
+        <script>
+            function nextPage() {
+                // Hide the current page and show the next page
+
+
+                let b = document.getElementById('dropdown1')
+                let c = b.value;
+                console.log(c)
+                if (c == "style 1") {
+                    document.getElementById('page1').style.display = 'none';
+                    document.getElementById('page2').style.display = 'block';
+
+                }
+                else if (c == "style 2") {
+                    document.getElementById('page1').style.display = 'none';
+                    document.getElementById('page3').style.display = 'block';
+                }
+                else if (c == "style 3") {
+                    document.getElementById('page1').style.display = 'none';
+                    document.getElementById('page4').style.display = 'block';
+                }
+                else if (c == "style 4") {
+                    document.getElementById('page1').style.display = 'none';
+                    document.getElementById('page5').style.display = 'block';
+                }
+                // Add any additional logic you need here
+
+                // Prevent form submission (default behavior)
+                return false;
+            }
+        </script>
+
+
+        <script>
+            function previousPage1() {
+                document.getElementById('page1').style.display = 'block';
+                document.getElementById('page2').style.display = 'none';
+            }
+            function previousPage2() {
+                document.getElementById('page1').style.display = 'block';
+                document.getElementById('page3').style.display = 'none';
+            }
+            function previousPage3() {
+                document.getElementById('page1').style.display = 'block';
+                document.getElementById('page4').style.display = 'none';
+            }
+            function previousPage4() {
+                document.getElementById('page1').style.display = 'block';
+                document.getElementById('page5').style.display = 'none';
+            }
+        </script>
+
+
+        <script>
+            function showPreview() {
+                // Retrieve values from the form
+                var discountValue = document.getElementById('discount5').value;
+                var phoneNumberValue = document.getElementById('phoneNumber4').value;
+                var addressValue = document.getElementById('address').value;
+                let a = document.getElementById("page5-discount").value;
+
+                let b = document.getElementById("page5-phone").value;
+                let c = document.getElementById("page5-add").value;
+
+
+                // Update the content in the left division
+                var detailsContainer = document.getElementById('detailsContainer');
+                detailsContainer.innerHTML = `
+            <p class='discount'>${discountValue}</p>
+            <p class='phonenumber-p5'>${phoneNumberValue}</p>
+            <p class='addgress-page5'>${addressValue}</p>
+        `;
+                document.querySelector('.discount').style.color = a;
+                document.querySelector('.phonenumber-p5').style.color = b;
+                document.querySelector('.addgress-page5').style.color = c;
+
+                // Display the left division and hide the form
+                document.getElementById('previewContainer').style.display = 'block';
+                document.getElementById('page5').style.display = 'block';
+
+
+            
+               
+
+
+
+
+                // -------------------------------------------
+
+                            var selectedFont = document.getElementById("fontStylep1").value;
+                document.querySelector(".discount").style.fontFamily = selectedFont;
+                var selectedFont1 = document.getElementById("fontStylep2").value;
+                document.querySelector(".phonenumber-p5").style.fontFamily = selectedFont1;
+                var selectedFont2 = document.getElementById("fontStylep3").value;
+                document.querySelector(".addgress-page5").style.fontFamily = selectedFont2;
+
+
+
+
+                // var selectedSize = document.getElementById("fontSizep1").value;
+                // document.querySelector(".discount").style.fontSize = selectedSize + "px";
+                // var selectedSize1 = document.getElementById("fontSizep2").value;
+                // document.querySelector(".phonenumber-p5").style.fontSize = selectedSize1 + "px";
+                // var selectedSize2 = document.getElementById("fontSizep3").value;
+                // document.querySelector(".addgress-page5").style.fontSize = selectedSize2 + "px";
+            }
+
+            function previousPage() {
+                // Handle navigation to the previous page
+                // For example: window.history.back();
+            }
+
+
+         
+
+
+
+
+        </script>
+
+
+
+        <script>
+            //     function changeFontStyle() {
+            //     var selectedFont = document.getElementById("fontStyle").value;
+            //     document.querySelector(".discount").style.fontFamily = selectedFont;
+            //     var selectedFont1 = document.getElementById("fontStyle1").value;
+            //     document.querySelector(".phonenumber-p5").style.fontFamily = selectedFont1;
+            //     var selectedFont2 = document.getElementById("fontStyle2").value;
+            //     document.querySelector(".addgress-page5").style.fontFamily = selectedFont2;
+            // }
+            // function changeFontSize() {
+            //     var selectedSize = document.getElementById("fontSize").value;
+            //     document.querySelector(".discount").style.fontSize = selectedSize + "px";
+            //     var selectedSize1 = document.getElementById("fontSize1").value;
+            //     document.querySelector(".phonenumber-p5").style.fontSize = selectedSize1 + "px";
+            //     var selectedSize2 = document.getElementById("fontSize2").value;
+            //     document.querySelector(".addgress-page5").style.fontSize = selectedSize2 + "px";
+            // }
+
+
+        </script>
+
+
+
+
+
+        <script>
+            function downloadpage5() {
+
+                // Retrieve font sizes from the dropdowns
+                // var selectedSize = document.getElementById("fontSizep1").value;
+                // console.log(selectedSize)
+                // var selectedSize1 = document.getElementById("fontSizep2").value;
+                // var selectedSize2 = document.getElementById("fontSizep3").value;
+
+                // // Retrieve font styles from the dropdowns
+                // var selectedFont = document.getElementById("fontStylep1").value;
+                // console.log(selectedFont)
+                // var selectedFont1 = document.getElementById("fontStylep2").value;
+                // var selectedFont2 = document.getElementById("fontStylep3").value;
+
+                // Create a new canvas to combine image and content
+                var combinedCanvas = document.createElement('canvas');
+                var combinedContext = combinedCanvas.getContext('2d');
+
+                // Get the uploaded image canvas
+                var previewCanvas = document.getElementById('previewCanvas');
+
+                // Set the combined canvas size to match the image canvas size
+                combinedCanvas.width = previewCanvas.width;
+                combinedCanvas.height = previewCanvas.height;
+
+                // Draw the image on the combined canvas
+                combinedContext.drawImage(previewCanvas, 0, 0);
+
+                // -----------------------------------------------
+
+
+                var discountValue = document.getElementById('discount5').value;
+                var phoneNumberValue = document.getElementById('phoneNumber4').value;
+                var addressValue = document.getElementById('address').value;
+                let a = document.getElementById("page5-discount").value;
+
+                let b = document.getElementById("page5-phone").value;
+                let c = document.getElementById("page5-add").value;
+
+
+                // Update the content in the left division
+                var detailsContainer = document.getElementById('detailsContainer');
+                detailsContainer.innerHTML = `
+            <p class='discount'>${discountValue}</p>
+            <p class='phonenumber-p5'>${phoneNumberValue}</p>
+            <p class='addgress-page5'>${addressValue}</p>
+        `;
+                document.querySelector('.discount').style.color = a;
+                document.querySelector('.phonenumber-p5').style.color = b;
+                document.querySelector('.addgress-page5').style.color = c;
+
+                // Display the left division and hide the form
+                document.getElementById('previewContainer').style.display = 'block';
+                document.getElementById('page5').style.display = 'block';
+                // ==================================================
+
+
+
+                // Set the desired coordinates for each text element
+                var xDiscount = 100; // Adjust this value based on your design
+                var yDiscount = 800; // Adjust this value based on your design
+
+                var xPhoneNumber = 400; // Adjust this value based on your design
+                var yPhoneNumber = 1000; // Adjust this value based on your design
+
+                var xAddress = 300; // Adjust this value based on your design
+                var yAddress = 1050; // Adjust this value based on your design
+
+                combinedContext.fillStyle = a;
+                // combinedContext.font = ${selectedSize}px ${selectedFont};
+                combinedContext.fillText(discountValue, xDiscount, yDiscount);
+
+                combinedContext.fillStyle = b;
+                // combinedContext.font = ${selectedSize1}px ${selectedFont1};
+                combinedContext.fillText(phoneNumberValue, xPhoneNumber, yPhoneNumber);
+
+                combinedContext.fillStyle = c;
+                // combinedContext.font = ${selectedSize2}px ${selectedFont2};
+                combinedContext.fillText(addressValue, xAddress, yAddress);
+
+                setTimeout(function () {
+                    // Convert the combined canvas to data URL
+                    var dataURL = combinedCanvas.toDataURL('image/png');
+
+                    // Create a temporary link element to trigger the download
+                    var link = document.createElement('a');
+                    link.href = dataURL;
+                    link.download = 'combined_image.png';
+                    link.click();
+                }, 500); // Adjust the delay time as needed
+
+            }
+
+
+
+
+
+        </script>
+
+
+
+        <script>
+           
+            function validatePhoneNumber() {
+      var phoneNumberInput = document.getElementById('phoneNumber1');
+      var errorMessage = document.getElementById('error-message1');
+      
+      var phoneNumber = phoneNumberInput.value;
+
+      // Check if the input contains only numeric characters and up to 10 digits
+      if (/^\d{0,10}$/.test(phoneNumber)) {
+        errorMessage.textContent = ''; // Clear error message if valid
+      } else {
+        errorMessage.textContent = 'Please enter up to 10 numeric characters for discount';
+        errorMessage.style.color = 'red';
+        phoneNumberInput.value = phoneNumber.replace(/[^\d]/g, '').substring(0, 10); // Remove non-numeric characters and limit to 10 digits
+      }
+    }
+      
+
+      
+            function validateDiscount() {
+                var discountInput = document.getElementById('discount1');
+                var errorMessage = document.getElementById('error-message2');
+
+                var discountValue = discountInput.value;
+
+                // Check if the input contains only numeric characters
+                if (/^\d+$/.test(discountValue)) {
+                    errorMessage.textContent = ''; // Clear error message if valid
+                } else {
+                    errorMessage.textContent = 'Please enter only numeric characters for discount';
+                    errorMessage.style.color='red';
+                    discountInput.value = discountValue.replace(/[^\d]/g, ''); // Remove non-numeric characters
+                }
+            }
+
+
+            // 2nd
+         
+      
+            function validatePhoneNumber1() {
+      var phoneNumberInput = document.getElementById('phoneNumber2');
+      var errorMessage = document.getElementById('error-messagep1');
+      
+      var phoneNumber = phoneNumberInput.value;
+
+      // Check if the input contains only numeric characters and up to 10 digits
+      if (/^\d{0,10}$/.test(phoneNumber)) {
+        errorMessage.textContent = ''; // Clear error message if valid
+      } else {
+        errorMessage.textContent = 'Please enter up to 10 numeric characters for discount';
+        errorMessage.style.color = 'red';
+        phoneNumberInput.value = phoneNumber.replace(/[^\d]/g, '').substring(0, 10); // Remove non-numeric characters and limit to 10 digits
+      }
+    }
+
+      
+            function validateDiscount1() {
+                var discountInput = document.getElementById('discount2');
+                var errorMessage = document.getElementById('error-messaged1');
+
+                var discountValue = discountInput.value;
+
+                // Check if the input contains only numeric characters
+                if (/^\d+$/.test(discountValue)) {
+                    errorMessage.textContent = ''; // Clear error message if valid
+                } else {
+                    errorMessage.textContent = 'Please enter only numeric characters for discount';
+                    errorMessage.style.color='red';
+                    discountInput.value = discountValue.replace(/[^\d]/g, ''); // Remove non-numeric characters
+                }
+            }
+
+            // 3rd
+          
+      
+            function validatePhoneNumber2() {
+      var phoneNumberInput = document.getElementById('phoneNumber3');
+      var errorMessage = document.getElementById('error-messagep2');
+      
+      var phoneNumber = phoneNumberInput.value;
+
+      // Check if the input contains only numeric characters and up to 10 digits
+      if (/^\d{0,10}$/.test(phoneNumber)) {
+        errorMessage.textContent = ''; // Clear error message if valid
+      } else {
+        errorMessage.textContent = 'Please enter up to 10 numeric characters for discount';
+        errorMessage.style.color = 'red';
+        phoneNumberInput.value = phoneNumber.replace(/[^\d]/g, '').substring(0, 10); // Remove non-numeric characters and limit to 10 digits
+      }
+    }
+      
+            function validateDiscount2() {
+                var discountInput = document.getElementById('discount3');
+                var errorMessage = document.getElementById('error-messaged2');
+
+                var discountValue = discountInput.value;
+
+                // Check if the input contains only numeric characters
+                if (/^\d+$/.test(discountValue)) {
+                    errorMessage.textContent = ''; // Clear error message if valid
+                } else {
+                    errorMessage.textContent = 'Please enter only numeric characters for discount';
+                    errorMessage.style.color='red';
+                    discountInput.value = discountValue.replace(/[^\d]/g, ''); // Remove non-numeric characters
+                }
+            }
+
+         
+      
+
+      
+            function validateDiscount3() {
+                var discountInput = document.getElementById('discount4');
+                var errorMessage = document.getElementById('error-messaged3');
+
+                var discountValue = discountInput.value;
+
+                // Check if the input contains only numeric characters
+                if (/^\d+$/.test(discountValue)) {
+                    errorMessage.textContent = ''; // Clear error message if valid
+                } else {
+                    errorMessage.textContent = 'Please enter only numeric characters for discount';
+                    errorMessage.style.color='red';
+                    discountInput.value = discountValue.replace(/[^\d]/g, ''); // Remove non-numeric characters
+                }
+            }
+
+
+
+
+            function validatePhoneNumber3() {
+      var phoneNumberInput = document.getElementById('phoneNumber4');
+      var errorMessage = document.getElementById('error-messagep3');
+      
+      var phoneNumber = phoneNumberInput.value;
+
+      // Check if the input contains only numeric characters and up to 10 digits
+      if (/^\d{0,10}$/.test(phoneNumber)) {
+        errorMessage.textContent = ''; // Clear error message if valid
+      } else {
+        errorMessage.textContent = 'Please enter up to 10 numeric characters for discount';
+        errorMessage.style.color = 'red';
+        phoneNumberInput.value = phoneNumber.replace(/[^\d]/g, '').substring(0, 10); // Remove non-numeric characters and limit to 10 digits
+      }
+    }
+
+            function validateDiscount4() {
+                var discountInput = document.getElementById('discount5');
+                var errorMessage = document.getElementById('error-messaged4');
+
+                var discountValue = discountInput.value;
+
+                // Check if the input contains only numeric characters
+                if (/^\d+$/.test(discountValue)) {
+                    errorMessage.textContent = ''; // Clear error message if valid
+                } else {
+                    errorMessage.textContent = 'Please enter only numeric characters for discount';
+                    errorMessage.style.color='red';
+                    discountInput.value = discountValue.replace(/[^\d]/g, ''); // Remove non-numeric characters
+                }
+            }
+        </script>
+
+        <script>
+            function clearPreview(){
+                var detailsContainer = document.getElementById('detailsContainer');
+                detailsContainer.innerHTML = ""
+            }
+        </script>
+
+
+</body>
+
+</html>
